@@ -109,6 +109,12 @@ h3 {
     color: #fff;
 }
 
+.btn.pending {
+    background: #fff;
+    color: #c25205;
+    border-color: #c25205;
+}
+
 .btn.danger {
     background: #e53935;
     color: #fff;
@@ -411,17 +417,17 @@ h3 {
     padding: 0 .5rem;
 }
 
-.badge.active {
+.badge.active, .badge.done {
     border-color: #3eaf7c;
     color: #3eaf7c;
 }
 
-.badge.danger {
+.badge.cancelled {
     border-color: #e53935;
     color: #e53935;
 }
 
-.badge.warning {
+.badge.pending {
     border-color: #c25205;
     color: #c25205;
 }

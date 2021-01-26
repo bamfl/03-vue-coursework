@@ -1,6 +1,5 @@
 <template>
   <form class="card" @submit.prevent="addTask">
-		{{ allTasks }}
     <h1>Создать новую задачу</h1>
     <div class="form-control">
       <label for="title">Название</label>
@@ -32,17 +31,19 @@
   </form>
 </template>
 
-
 <script>
 import axios from 'axios'
 import { useStore } from 'vuex'
 import { ref, computed, onBeforeMount } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
 	setup () {
 		onBeforeMount(() => {
 			loadTasks()
 		})
+
+		const router = useRouter()
 
 		const store = useStore()
 
@@ -91,6 +92,8 @@ export default {
 			title.value = ''
 			date.value = ''
 			description.value = ''
+
+			router.push('/tasks')
 		}
 
 		return {
