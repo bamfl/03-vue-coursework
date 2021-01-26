@@ -6,15 +6,15 @@
 			<p><strong>Дэдлайн</strong>: {{ task.date }}</p>
 			<p><strong>Описание</strong>: {{ task.description }}</p>
 			<div>
-				<button class="btn pending" @click="pending">Взять в работу</button>
-				<button class="btn primary" @click="done">Завершить</button>
-				<button class="btn danger" @click="cancelled">Отменить</button>
+				<button class="btn primary" @click="deleteTask('active')">Активный</button>
+				<button class="btn pending" @click="deleteTask('pending')">Взять в работу</button>
+				<button class="btn primary" @click="deleteTask('done')">Завершить</button>
+				<button class="btn danger" @click="deleteTask('cancelled')">Отменить</button>
 			</div>
 		</div>
   </div>
-  <h3 v-if="allTasks.length === 0" class="text-white center">
-    Задачи с id = <strong>Tут АЙДИ</strong> нет.
-  </h3>
+
+  <router-view></router-view>
 </template>
 
 <script>
@@ -48,19 +48,15 @@ export default {
 			allTasks.value = result
 		}
 
-		function pending() {
-			status.value = 'pending'
+		const taskId = props.taskId
+
+		async function deleteTask(value) {
+			await axios.patch(`https://vue-coursework-86815-default-rtdb.firebaseio.com/tasks/${taskId}.json`, { status: value } )
+
+			status.value = value
 		}
 
-		function done() {
-			status.value = 'done'
-		}
-
-		function cancelled() {
-			status.value = 'cancelled'
-		}
-
-		// {{ task }} рендерит, а {{ task.id }} уже не выводит, не знаю, как сделать по-другому, value получить тоже не получается
+		// {{ task }} рендерит, а {{ task.id }} уже не выводит, не знаю, как сделать по-другому? value получить тоже не получается
 		// const task = computed(() => {
 		// 	return allTasks.value.find(t => t.id == props.taskId)
 		// })
@@ -69,7 +65,8 @@ export default {
 			// task,
 			allTasks,
 			status,
-			pending, done, cancelled
+			// pending, done, cancelled, 
+			deleteTask
 		}
 	},
 
