@@ -55,8 +55,9 @@ export default {
 		const status = ref('')
 
 		const isDisabled = computed(() => {
-			return (title.value.length > 3 && date.value !== null && description.value.length > 3) ? false : true
+			return (title.value.length > 3 && date.value.length > 0 && description.value.length > 3) ? false : true
 		})
+
 
 		async function loadTasks() {
 			const { data } = await axios.get('https://vue-coursework-86815-default-rtdb.firebaseio.com/tasks.json')
